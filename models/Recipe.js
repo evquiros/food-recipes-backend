@@ -1,10 +1,18 @@
 const mongoose = require('mongoose')
 
 const recipeSchema = new mongoose.Schema({
-    title: String,
-    description: String,
+    title: {
+        type: String,
+        required: [true, 'Title is required'],
+        trim: true
+    },
+    description: {
+        type: String,
+        required: [true, 'Description is required'],
+        trim: true
+    },
     preparationTime: {
-        total:String,
+        total: String,
         prep: String,
         cook: String
     },
@@ -17,6 +25,7 @@ const recipeSchema = new mongoose.Schema({
         fat: String
     }
 })
+
 
 recipeSchema.set('toJSON', {
     transform: (document, returnedObject) => {
