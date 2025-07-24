@@ -20,4 +20,18 @@ router.get('/:id', async (req, res) => {
     }
 })
 
+router.post('/', async (req, res) => {
+    try {
+        const newRecipe = new Recipe(req.body)
+        const savedRecipe = await newRecipe.save()
+        res.status(201).json(savedRecipe)
+    } catch (error) {
+        if (error.name === 'ValidationError') {
+            return res.status(400).json({ message: error.message })
+        }
+        res.status(500).json({ message: 'Server error' })
+    }
+})
+
+
 module.exports = router
